@@ -282,8 +282,8 @@
                 },
                 onRoomWasDestroyed() {
                     u.app.storage && u.app.storage.isSupported && (u.app.storage.remove("roomCode"), u.app.storage.remove("reconnect")), h.b.show("error", {
-                        titleText: "Disconnected",
-                        text: "Thanks for playing!",
+                        titleText: "Від'єднано",
+                        text: "Дякуємо за гру!",
                         willClose: () => {
                             window.location.reload(!0)
                         }
@@ -291,8 +291,8 @@
                 },
                 onDisconnected() {
                     h.b.show("error", {
-                        titleText: "Disconnected",
-                        text: "You have been disconnected.",
+                        titleText: "Від'єднано",
+                        text: "Дякуємо за гру!",
                         willClose: () => {
                             window.location.reload(!0)
                         }
@@ -373,9 +373,9 @@
                             });
                             else if (o && "Lobby" === o) {
                                 if (!c.app.client.isRole("player")) return void t.showScreen("#state-logo");
-                                if (t.hideLobbyButtons(), !n.isAllowedToStartGame) return i()("#quiplash-lobby-text").html("Sit back and relax!"), void t.showScreen("#state-lobby");
+                                if (t.hideLobbyButtons(), !n.isAllowedToStartGame) return i()("#quiplash-lobby-text").html("Сідайте та кайфуйте!"), void t.showScreen("#state-lobby");
                                 const s = e.lobbyState;
-                                "WaitingForMore" === s ? i()("#quiplash-lobby-text").html("Waiting for all players to join") : "CanStart" === s ? (i()("#quiplash-lobby-text").html("Press this button when everybody has joined"), i()("#quiplash-startgame").show()) : "Countdown" === s ? (i()("#quiplash-lobby-text").html("Press this button to cancel game start"), i()("#quiplash-stopcountdown").show()) : "PostGame" === s && (i()("#quiplash-lobby-text").html("What do you want to do?"), i()(".quiplash-endbuttons").show()), t.showScreen("#state-lobby")
+                                "WaitingForMore" === s ? i()("#quiplash-lobby-text").html("Чекаємо всіх у грі") : "CanStart" === s ? (i()("#quiplash-lobby-text").html("Натисніть цю кнопку, коли всі будуть готові"), i()("#quiplash-startgame").show()) : "Countdown" === s ? (i()("#quiplash-lobby-text").html("Натисніть цю кнопку, щоб відмінити початок гри"), i()("#quiplash-stopcountdown").show()) : "PostGame" === s && (i()("#quiplash-lobby-text").html("Що ви хочете далі?"), i()(".quiplash-endbuttons").show()), t.showScreen("#state-lobby")
                             } else if ("Gameplay_Logo" === o) t.showScreen("#state-logo");
                             else if ("Gameplay_Round" === o) {
                                 const n = yield s(41842)(`./Round${e.round}.png`);
@@ -385,15 +385,15 @@
                                     if (!n.question) return void t.showScreen("#state-done-answering");
                                     if (t.currentAnswerQuestionId !== n.question.id && (i()("#quiplash-answer-input").val(""), i()("#quiplash-answer-field").show(), i()("#quiplash-submit-alert").hide(), i()("#state-answer-question #question-text").html(n.question.prompt.replace(/<BLANK>/gi, "________"))), n.showError) {
                                         const e = i()("#quiplash-submit-alert");
-                                        i()("#quiplash-submit-alert").html("You entered the same thing as someone else! Try again."), e.addClass("alert-info"), e.removeClass("alert-danger"), e.show()
+                                        i()("#quiplash-submit-alert").html("Така відповідь вже є, введіть щось інше."), e.addClass("alert-info"), e.removeClass("alert-danger"), e.show()
                                     }
                                     t.currentAnswerQuestionId = n.question.id, t.showScreen("#state-answer-question")
-                                } else i()(".state-answer-question-audience-text").html("You’re in the audience! Wait for the time to vote."), t.showScreen("#state-answer-question-audience");
+                                } else i()(".state-answer-question-audience-text").html("Ви у глядачах! Очікуйте голосування."), t.showScreen("#state-answer-question-audience");
                             else if ("Gameplay_Vote" === o) {
-                                if (n.doneVoting) return i()("#vote-text").html("Wait for the other players!"), i()("#quiplash-vote").html(""), void t.showScreen("#state-vote");
+                                if (n.doneVoting) return i()("#vote-text").html("Очікуємо інших гравців"), i()("#quiplash-vote").html(""), void t.showScreen("#state-vote");
                                 e.question ? i()("#state-vote #question-text").html(e.question.prompt.replace(/<BLANK>/gi, "________")) : i()("#state-vote #question-text").html("");
                                 let s = "";
-                                n.votesLeft > 1 ? s = " votes left" : 1 === n.votesLeft && (s = " vote left"), i()("#vote-text").html(n.votesLeft ? `You have ${n.votesLeft}${s}` : "Which one do you like more?");
+                                n.votesLeft > 1 ? s = " голоси лишилось" : 1 === n.votesLeft && (s = " голос лишився"), i()("#vote-text").html(n.votesLeft ? `${n.votesLeft}${s}` : "Що з цього вам більше подобається?");
                                 let a = "";
                                 if (e.choices && e.order)
                                     for (let t = 0; t < e.order.length; t++) {
@@ -416,7 +416,7 @@
                                     }
                                 t.notify(), i()("#quiplash-vote").html(a), t.showScreen("#state-vote")
                             }
-                        } else l.b.show(Error("The room is full"), {
+                        } else l.b.show(Error("Кімната вже заповнена"), {
                             willClose: () => {
                                 window.location.reload(!0)
                             }
@@ -457,7 +457,7 @@
                     const e = this.sanitize(i()("#quiplash-answer-input").val()).toUpperCase();
                     if (0 === e.length) {
                         const e = i()("#quiplash-submit-alert");
-                        return i()("#quiplash-submit-alert").html("You can't enter nothing!"), e.removeClass("alert-info"), e.addClass("alert-danger"), e.show(), !1
+                        return i()("#quiplash-submit-alert").html("Напишіть хоч щось"), e.removeClass("alert-info"), e.addClass("alert-danger"), e.show(), !1
                     }
                     return c.app.client.send("SendMessageToRoomOwner", {
                         answer: e,
@@ -471,7 +471,7 @@
                     }) : c.app.client.isRole("audience") && (c.app.client.sessionSend("vote", "Quiplash Vote", {
                         type: "vote",
                         vote: t
-                    }), i()("#vote-text").html("Thanks, audience member!"), i()("#quiplash-vote").html(""), this.showScreen("#state-vote")), !1
+                    }), i()("#vote-text").html("Дякуємо, глядачу!"), i()("#quiplash-vote").html(""), this.showScreen("#state-vote")), !1
                 },
                 newGameSamePlayers: () => (c.app.client.send("SendMessageToRoomOwner", {
                     startGame: !0,
